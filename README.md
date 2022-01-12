@@ -1,7 +1,7 @@
-### Hi there 👋
+### Hi there :wave:
 
 ###### Back-End Web Developer
 
-- 🌱 Learning Docker and CI/CD
-- ⚙️ Fluent in `.ts`, `.js`, `.php`, `.css`, `.html`
-- 🌍 Find me: https://znix.me
+- :seedling: Learning Docker and CI/CD
+- :rocket: Fluent in `.ts`, `.js`, `.php`, `.css`, `.html`
+- :earth_asia: Find me: https://znix.me
