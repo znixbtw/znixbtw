@@ -1,0 +1,18 @@
+h3 {
+    color: white;
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    padding-bottom: 0.5rem;
+}
+
+h6 {
+    color: rgb(56 189 248);
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+ul {
+    color: rgb(209 213 219);
+    font-weight: 500 !important;
+    margin-top: 0.5rem !important;
+}
