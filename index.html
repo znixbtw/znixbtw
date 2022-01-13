@@ -1,72 +1,83 @@
 <!doctype html>
 <html>
 <head>
-    <title>znix.me</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js" integrity="sha512-TIDbN32lXOg2Mw1VcnKrQLZgfALryJogWCu/NHWtlMCR1jget+mOwMtdehBBZz2f9PKeK2AQPwVxkbl4u/1H5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/2.0.0/markdown-it-emoji.min.js" integrity="sha512-u6mbvPL0cFntVV/ZiqC9zXeMWGGty8p8ExdBCQLaTArKTnV/6g+Pe2Cs2eNg7hC8rof639ltF9driWcUpunRKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<title>znix.me</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="./style.css" rel="stylesheet"/>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script crossorigin="anonymous"
+			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+			referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script crossorigin="anonymous"
+			integrity="sha512-TIDbN32lXOg2Mw1VcnKrQLZgfALryJogWCu/NHWtlMCR1jget+mOwMtdehBBZz2f9PKeK2AQPwVxkbl4u/1H5g=="
+			referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"></script>
+	<script crossorigin="anonymous"
+			integrity="sha512-u6mbvPL0cFntVV/ZiqC9zXeMWGGty8p8ExdBCQLaTArKTnV/6g+Pe2Cs2eNg7hC8rof639ltF9driWcUpunRKQ=="
+			referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/2.0.0/markdown-it-emoji.min.js"></script>
 </head>
 
 <body class="bg-gray-900">
 
 <div class="flex h-screen">
-    <div class="m-auto md:w-3/5 md:p-0 p-3 space-y-5">
+	<div class="m-auto md:4/5 lg:w-3/5 lg:p-0 md:px-0 p-4 space-y-4">
 
-        <div class="px-8 py-4 mx-auto rounded-lg shadow-md bg-gray-800">
-            <div class="divide-y divide-gray-700">
-                <div class="mb-2">
-                    <p id="about" class="mt-2 text-gray-300"></p>
-                </div>
-                <div class="flex items-center justify-between pt-2">
-                    <a id="github-url" class="text-blue-400 hover:underline">GitHub</a>
+		<div class="px-8 py-4 mx-auto rounded-lg shadow-md bg-gray-800">
+			<div class="divide-y divide-gray-700">
+				<div class="mb-2">
+					<p class="mt-2 text-gray-300" id="about"></p>
+				</div>
+				<div class="flex items-center justify-between pt-2">
+					<a class="text-blue-400 hover:underline" id="github-url">GitHub</a>
 
-                    <div class="flex items-center">
-                        <img id="avatar"/>
-                        <p id="username" class="font-bold text-gray-200"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+					<div class="flex items-center">
+						<img id="avatar"/>
+						<p class="font-bold text-gray-200" id="username"></p>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- Repos -->
-        <div class="grid gap-4 md:grid-cols-3 md:grid-rows-3" id="repo"></div>
+		<!-- Repos -->
+		<div class="grid gap-4 lg:grid-cols-3 lg:grid-rows-3" id="repo"></div>
 
-    </div>
+	</div>
 </div>
 
 <script>
-    const md = window.markdownit().use(window.markdownitEmoji);
-    $(document).ready(function(){
-        $.ajax({
-            url: 'https://api.github.com/repos/znixbtw/znixbtw/readme',
-            headers: { 'Accept': 'application/vnd.github.json' }
-        }).done(function(data) {
-            const about = atob(data.content);
-            document.getElementById('about').innerHTML = md.render(about);
-        });
+	const md = window.markdownit().use(window.markdownitEmoji);
+	$(document).ready(function () {
+		// Get readme
+		$.ajax({
+			url: 'https://api.github.com/repos/znixbtw/znixbtw/readme',
+			headers: {'Accept': 'application/vnd.github.json'}
+		}).done(function (data) {
+			const about = atob(data.content);
+			document.getElementById('about').innerHTML = md.render(about);
+		});
 
-        $.ajax({
-            url: 'https://api.github.com/users/znixbtw'
-        }).done(function(user) {
-            $('#avatar')
-                .attr('src', user.avatar_url)
-                .addClass('hidden object-cover w-10 h-10 mr-2 rounded-full sm:block');
-            $('#github-url')
-                .attr("href", user.html_url);
-            document.getElementById('username').innerText = user.login;
+		// Get user data
+		$.ajax({
+			url: 'https://api.github.com/users/znixbtw'
+		}).done(function (user) {
 
-        });
+			$('#avatar')
+					.attr('src', user.avatar_url)
+					.addClass('hidden object-cover w-10 h-10 mr-2 rounded-full sm:block');
 
-        $.ajax({
-            url: 'https://api.github.com/users/znixbtw/repos?sort=pushed&per_page=9'
-        }).done(function(data) {
-            $.each(data, function(index, repo) {
-                $('#repo').append(
-                    `
+			$('#github-url').attr("href", user.html_url);
+
+			document.getElementById('username').innerText = user.login;
+
+		});
+
+		// Get repos
+		$.ajax({
+			url: 'https://api.github.com/users/znixbtw/repos?sort=pushed&per_page=9'
+		}).done(function (data) {
+			$.each(data, function (index, repo) {
+				$('#repo').append(
+						`
                         <div class="px-8 py-4  rounded-lg shadow-md bg-gray-800">
                             <div class="flex items-center justify-between">
                                 <a href="${repo.html_url}" target="_blank"><span class="text-sm font-light text-blue-400">GitHub</span></a>
@@ -78,10 +89,10 @@
                             </div>
                         </div>
                     `
-                );
-            });
-        });
-    });
+				);
+			});
+		});
+	});
 </script>
 
 </body>
